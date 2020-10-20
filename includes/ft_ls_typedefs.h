@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/11 13:48:03 by hhuhtane          #+#    #+#             */
-/*   Updated: 2020/10/19 19:39:54 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2020/10/20 19:55:37 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,10 @@
 */
 # define USAGE 2
 # define MALLOC_ERROR 4
+# define OPEN_ERROR 8
 # define LS_OPTIONS "@1AaBbCcdeFfGgHhikLlmnOoPpqRrSsTtuUvWwx%"
 # define LS_OPTIONS_SIZE 40
+# define RECURSIVE 27
 
 /*
 **************
@@ -37,11 +39,13 @@
 typedef struct dirent		t_dirent;
 typedef struct stat			t_stat;
 typedef struct passwd		t_passwd;
+typedef struct group		t_group;
 
 typedef struct s_file
 {
 	t_stat					file_stat;
-	char					mode_str[11];
+	char					*file_name;
+	char					*mode_str;
 	char					*links_str;
 	char					*owner_str;
 	char					*group_str;
@@ -50,16 +54,24 @@ typedef struct s_file
 	char					*name_str;
 }							t_file;
 
+typedef struct s_dirlst
+{
+	char					*d_name;
+	t_list					*f_lst;
+	struct s_dirlst			*next;
+}							t_dirlst;
+
 typedef struct s_ls
 {
-	t_dirent				*dirent;
-	t_stat					*t_stat;
-	t_passwd				*t_passwd;
+	t_dirent				*dirent; // no need?
+	t_stat					*t_stat; // no need?
+	t_passwd				*t_passwd; // no need?
 	char					options_str[LS_OPTIONS_SIZE + 1];
 	t_u64					options;
 	int						error_code;
-	t_list					*args_output;
-	t_list					*file_lst;
+	t_list					*args_output; // no need?
+	t_list					*file_lst; // no need?
+	t_dirlst				*dirs;
 }							t_ls;
 
 

@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/11 13:37:58 by hhuhtane          #+#    #+#             */
-/*   Updated: 2020/10/19 19:44:03 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2020/10/20 19:54:08 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,15 +124,24 @@ int			ft_inspect_file(char *file)
 	return (1);
 }
 
-static void		ft_get_stats(char *file, t_stat *dst)
+static void		ft_get_stats(char *file, t_dirlst *current, t_ls *ls_cont)
 {
 	t_stat		buf;
+	t_file		temp;
 
 	if ((lstat(file, &buf)) == -1)
 	{
-		perror(file);
+		error_ls(file, 0);
 		return ;
 	}
+	if (((ls_cont->options >> RECURSIVE) & 1) && (buf->st_mode & S_IFDIR))
+		ft_list_dir(file, ls_cont);
+	temp->file_name = ft_strdup(file);
+	temp->mode_str = get_modes(buf);
+	temp->links_str = get_links(buf);
+	temp->owner_str = get_owner(buf, file);
+	temp->size_str = get_file_size(buf, file);
+
 	dst->st_dev = buf.st_dev;
 	dst->st_mode = buf.st_mode;
 	dst->st_nlink = buf.st_nlink;
@@ -151,24 +160,41 @@ static void		ft_get_stats(char *file, t_stat *dst)
 //	file_out->mode_str = get_modes
 }
 
+t_dirlst	*ft_init_dir_lst(t_dirlst *lst, char *dir)
+{
+	t_dirlst	*ptr;
+
+	ptr = lst;
+	while (ptr->next)
+		ptr = ptr->next;
+	if (!(ptr->next = (t_dirlst*)malloc(sizeof(t_dirlst))))
+		error_ls(NULL, MALLOC_ERROR);
+	ptr = ptr->next;
+	if (!(ptr->d_name = ft_strdup(dir)))
+		error_ls(NULL, MALLOC_ERROR);
+	return (ptr->next);
+}
+
 int			ft_list_dir(char *dir, t_ls *ls_cont)
 {
 	DIR			*dirp;
 	t_dirent	*dent;
-	t_stat		file_out;
 	t_list		*temp;
+	t_dirlst	*current;
 
+	current = ft_init_dir_lst(ls_cont->dir, dir);
 	if (!(dirp = opendir(dir)))
-		return (0);
+		return (error_ls(dir, OPEN_ERROR));
 	while ((dent = readdir(dirp)))
 	{
-		ft_get_stats(dent->d_name, &file_out);
+		ft_get_stats(dent->d_name, current, ls_cont);
 		if (!(temp = ft_lstnew(&file_out, 1)))
-		{
-			closedir(dirp);
-			return (0);
-		}
-		ft_lstappend(&ls_cont->file_lst, temp);
+//		{
+			error_ls(NULL, MALLOC_ERROR);
+//			closedir(dirp);
+//			return (0);
+//		}
+		ft_lstappend(&ls_cont->dirs->f_lst, temp);
 //		ft_printf("%s\n", dent->d_name);
 //		ft_inspect_file(dent->d_name);
 	}
