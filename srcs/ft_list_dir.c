@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/11 13:37:58 by hhuhtane          #+#    #+#             */
-/*   Updated: 2020/10/20 19:54:08 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2020/10/21 13:55:28 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,24 +124,46 @@ int			ft_inspect_file(char *file)
 	return (1);
 }
 
-static void		ft_get_stats(char *file, t_dirlst *current, t_ls *ls_cont)
+static t_file	*get_stats(char *file, t_ls *ls_cont)
 {
-	t_stat		buf;
-	t_file		temp;
+//	t_stat		*buf;
+//	t_passwd	*passwd;
+//	t_group		*group;
+	t_file		*temp;
+	
 
-	if ((lstat(file, &buf)) == -1)
-	{
-		error_ls(file, 0);
-		return ;
-	}
-	if (((ls_cont->options >> RECURSIVE) & 1) && (buf->st_mode & S_IFDIR))
+//	if (!(buf = (t_stat*)malloc(sizeof(t_stat))))
+//		error_ls(NULL, MALLOC_ERROR);
+	if (!(temp = (t_file*)malloc(sizeof(t_file))))
+		error_ls(NULL, MALLOC_ERROR);
+//	temp->file_stat = buf;
+
+	if (!(temp->f_stat = (t_stat*)malloc(sizeof(t_stat))))
+		error_ls(NULL, MALLOC_ERROR);
+//	if (!(temp->f_passwd = (t_passwd*)malloc(sizeof(t_passwd))))
+//		error_ls(NULL, MALLOC_ERROR);
+//	if (!(temp->f_group = (t_group*)malloc(sizeof(t_group))))
+//		error_ls(NULL, MALLOC_ERROR);
+	
+	if ((lstat(file, temp->f_stat)) == -1)
+		error_ls(file, errno); //is this ok?
+//	if (!(temp->f_passwd = getpwuid(temp->f_stat->st_uid)))
+//		error_ls(file, errno); //is this ok? maybe not here?
+//	if (!(temp->f_group = getgrgid(temp->f_stat->st_gid)))
+//		error_ls(file, errno); //is this ok? maybe not here?
+	if (((ls_cont->options >> RECURSIVE) & 1) && (temp->f_stat->st_mode & S_IFDIR))
 		ft_list_dir(file, ls_cont);
-	temp->file_name = ft_strdup(file);
+	return (temp);
+/*
+NOT YET HERE
+	temp->name_str = ft_strdup(file);
 	temp->mode_str = get_modes(buf);
 	temp->links_str = get_links(buf);
 	temp->owner_str = get_owner(buf, file);
-	temp->size_str = get_file_size(buf, file);
+	temp->group_str = get_group(buf, file);
+	temp->size_str = get_file_size(buf);
 
+THIS ARE USELESS
 	dst->st_dev = buf.st_dev;
 	dst->st_mode = buf.st_mode;
 	dst->st_nlink = buf.st_nlink;
@@ -152,6 +174,7 @@ static void		ft_get_stats(char *file, t_dirlst *current, t_ls *ls_cont)
 	dst->st_size = buf.st_size;
 	dst->st_atime = buf.st_atime;
 	dst->st_mtime = buf.st_mtime;
+*/
 
 	
 //	if (!(file_out = (t_file*)malloc(sizeof(t_file))))
@@ -159,6 +182,19 @@ static void		ft_get_stats(char *file, t_dirlst *current, t_ls *ls_cont)
 	
 //	file_out->mode_str = get_modes
 }
+
+/*
+static void		lst_delete(void *data, size_t i)
+{
+//	while (1);
+//	ft_bzero(data, i);
+//	while (1);
+	ft_printf("%u\n", sizeof(t_dirlst));
+	free(data);
+	(void)i;
+	while (1);
+}
+*/
 
 t_dirlst	*ft_init_dir_lst(t_dirlst *lst, char *dir)
 {
@@ -170,9 +206,12 @@ t_dirlst	*ft_init_dir_lst(t_dirlst *lst, char *dir)
 	if (!(ptr->next = (t_dirlst*)malloc(sizeof(t_dirlst))))
 		error_ls(NULL, MALLOC_ERROR);
 	ptr = ptr->next;
+	ptr->next = NULL;
 	if (!(ptr->d_name = ft_strdup(dir)))
 		error_ls(NULL, MALLOC_ERROR);
-	return (ptr->next);
+	if (!(ptr->f_lst = ft_lstnew(NULL, 0)))
+		error_ls(NULL, MALLOC_ERROR);
+	return (ptr);
 }
 
 int			ft_list_dir(char *dir, t_ls *ls_cont)
@@ -180,21 +219,29 @@ int			ft_list_dir(char *dir, t_ls *ls_cont)
 	DIR			*dirp;
 	t_dirent	*dent;
 	t_list		*temp;
+	t_file		*f;
 	t_dirlst	*current;
 
-	current = ft_init_dir_lst(ls_cont->dir, dir);
+	current = ft_init_dir_lst(ls_cont->dirs, dir);
 	if (!(dirp = opendir(dir)))
 		return (error_ls(dir, OPEN_ERROR));
 	while ((dent = readdir(dirp)))
 	{
-		ft_get_stats(dent->d_name, current, ls_cont);
-		if (!(temp = ft_lstnew(&file_out, 1)))
-//		{
+		f = get_stats(dent->d_name, ls_cont);
+		temp = ft_lstnew(f, sizeof(t_file));
+//		temp = ft_lstnew(get_stats(dent->d_name, ls_cont), sizeof(t_file));
+		if (!temp)
 			error_ls(NULL, MALLOC_ERROR);
+//		ft_get_stats(dent->d_name, f_temp, ls_cont); //FILEOUT VAI CURRENT
+//		if (!(temp = ft_lstnew(f_temp, 1)))
+//		{
+//			error_ls(NULL, MALLOC_ERROR);
 //			closedir(dirp);
 //			return (0);
 //		}
-		ft_lstappend(&ls_cont->dirs->f_lst, temp);
+		ft_lstappend(&current->f_lst, temp);
+		free(f);
+//		ft_lstappend(&ls_cont->dirs->f_lst, temp);
 //		ft_printf("%s\n", dent->d_name);
 //		ft_inspect_file(dent->d_name);
 	}

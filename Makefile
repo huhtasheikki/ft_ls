@@ -6,7 +6,7 @@
 #    By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/07/24 18:09:10 by hhuhtane          #+#    #+#              #
-#    Updated: 2020/10/20 14:47:17 by hhuhtane         ###   ########.fr        #
+#    Updated: 2020/10/20 20:18:47 by hhuhtane         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,8 @@ LIBFT_H = -I./libft/includes/
 SRC = ft_ls.c \
 		ft_list_dir.c \
 		ft_parse_args.c \
-		error_ls.c
+		error_ls.c \
+		get_stats.c
 
 SRCS = $(addprefix $(SRC_DIR), $(SRC))
 

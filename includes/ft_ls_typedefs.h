@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/11 13:48:03 by hhuhtane          #+#    #+#             */
-/*   Updated: 2020/10/20 19:55:37 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2020/10/21 12:11:40 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,15 +43,16 @@ typedef struct group		t_group;
 
 typedef struct s_file
 {
-	t_stat					file_stat;
-	char					*file_name;
+	t_stat					*f_stat;
+	t_passwd				*f_passwd;
+	t_group					*f_group;
+	char					*name_str;
 	char					*mode_str;
 	char					*links_str;
 	char					*owner_str;
 	char					*group_str;
 	char					*size_str;
 	char					*lastmod_str;
-	char					*name_str;
 }							t_file;
 
 typedef struct s_dirlst

@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/17 11:57:08 by hhuhtane          #+#    #+#             */
-/*   Updated: 2020/10/19 19:37:19 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2020/10/21 12:29:23 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,11 @@
 int		ft_parse_args(int argc, char **argv, t_ls *ls_cont);
 int		ft_list_dir(char *dir, t_ls *ls_cont);
 int		error_ls(char *str, int error_code);
+
+char	*get_modes(t_stat *buf);
+char	*get_links(t_stat *buf);
+char	*get_owner(t_stat *buf, char *file);
+char	*get_group(t_stat *buf, char *file);
+char	*get_file_size(t_stat *buf);
 
 #endif
