@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/17 11:51:15 by hhuhtane          #+#    #+#             */
-/*   Updated: 2020/10/21 13:55:51 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2020/10/21 14:45:02 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int		main(int argc, char **argv)
 
 	ft_start_init(&ls_cont);
 	ft_parse_args(argc, argv, &ls_cont);
+	ft_print_ls(&ls_cont);
 	ft_printf("options=%ld\n", ls_cont.options);
 	while(1);
 	return (0);

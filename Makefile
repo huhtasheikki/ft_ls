@@ -6,7 +6,7 @@
 #    By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/07/24 18:09:10 by hhuhtane          #+#    #+#              #
-#    Updated: 2020/10/20 20:18:47 by hhuhtane         ###   ########.fr        #
+#    Updated: 2020/10/21 14:45:27 by hhuhtane         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,8 @@ SRC = ft_ls.c \
 		ft_list_dir.c \
 		ft_parse_args.c \
 		error_ls.c \
-		get_stats.c
+		get_stats.c \
+		ft_print_ls.c
 
 SRCS = $(addprefix $(SRC_DIR), $(SRC))
 

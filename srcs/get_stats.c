@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 18:29:52 by hhuhtane          #+#    #+#             */
-/*   Updated: 2020/10/21 12:53:05 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2020/10/21 16:58:13 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,12 @@ char	*get_modes(t_stat *buf)
 
 	if (!(str = (char*)malloc(sizeof(char) * 11)))
 		error_ls(NULL, MALLOC_ERROR);
-	buf->st_mode & S_IFREG ? (str[0] = '-') : (str[0] = ' ');
+	(buf->st_mode & S_IFMT) & S_IFREG ? (str[0] = '-') : (str[0] = ' ');
 	buf->st_mode & S_IFDIR ? (str[0] = 'd') : 0;
 	buf->st_mode & S_IFCHR ? (str[0] = 'c') : 0;
-	buf->st_mode & S_IFBLK ? (str[0] = 'b') : 0;
-	buf->st_mode & S_IFLNK ? (str[0] = 'l') : 0;
-	buf->st_mode & S_IFSOCK ? (str[0] = 's') : 0;
+//	(buf->st_mode & S_IFMT) & S_IFBLK ? (str[0] = 'b') : 0;
+//	(buf->st_mode & S_IFMT) & S_IFLNK ? (str[0] = 'l') : 0;
+//	buf->st_mode & S_IFSOCK ? (str[0] = 's') : 0;
 	buf->st_mode & S_IFIFO ? (str[0] = 'p') : 0;
 	buf->st_mode & S_IRUSR ? (str[1] = 'r') : (str[1] = '-');
 	buf->st_mode & S_IWUSR ? (str[2] = 'w') : (str[2] = '-');

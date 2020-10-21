@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/17 11:57:08 by hhuhtane          #+#    #+#             */
-/*   Updated: 2020/10/21 12:29:23 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2020/10/21 14:44:26 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,5 +41,7 @@ char	*get_links(t_stat *buf);
 char	*get_owner(t_stat *buf, char *file);
 char	*get_group(t_stat *buf, char *file);
 char	*get_file_size(t_stat *buf);
+
+void	ft_print_ls(t_ls *ls_cont);
 
 #endif

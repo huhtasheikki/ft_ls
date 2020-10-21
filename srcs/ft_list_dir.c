@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/11 13:37:58 by hhuhtane          #+#    #+#             */
-/*   Updated: 2020/10/21 13:55:28 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2020/10/21 17:17:50 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,8 @@ static t_file	*get_stats(char *file, t_ls *ls_cont)
 	if (!(temp = (t_file*)malloc(sizeof(t_file))))
 		error_ls(NULL, MALLOC_ERROR);
 //	temp->file_stat = buf;
-
+	if (!(temp->name_str = ft_strdup(file)))
+		error_ls(NULL, MALLOC_ERROR);
 	if (!(temp->f_stat = (t_stat*)malloc(sizeof(t_stat))))
 		error_ls(NULL, MALLOC_ERROR);
 //	if (!(temp->f_passwd = (t_passwd*)malloc(sizeof(t_passwd))))
@@ -145,7 +146,7 @@ static t_file	*get_stats(char *file, t_ls *ls_cont)
 //	if (!(temp->f_group = (t_group*)malloc(sizeof(t_group))))
 //		error_ls(NULL, MALLOC_ERROR);
 	
-	if ((lstat(file, temp->f_stat)) == -1)
+	if ((stat(file, temp->f_stat)) == -1)
 		error_ls(file, errno); //is this ok?
 //	if (!(temp->f_passwd = getpwuid(temp->f_stat->st_uid)))
 //		error_ls(file, errno); //is this ok? maybe not here?
@@ -246,5 +247,8 @@ int			ft_list_dir(char *dir, t_ls *ls_cont)
 //		ft_inspect_file(dent->d_name);
 	}
 	closedir(dirp);
+//	ft_printf("current->d_name |%s|\n", current->d_name);
+//	f = ls_cont->dirs->next->f_lst->next->next->next->content;
+//	ft_printf("listdir f =%d\n", f->f_stat->st_size);
 	return (1);
 }
