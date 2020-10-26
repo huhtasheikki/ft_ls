@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/11 13:37:58 by hhuhtane          #+#    #+#             */
-/*   Updated: 2020/10/21 17:17:50 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2020/10/26 12:25:58 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,18 +124,15 @@ int			ft_inspect_file(char *file)
 	return (1);
 }
 
-static t_file	*get_stats(char *file, t_ls *ls_cont)
+static t_file	*get_stats(char *path, char *file)
 {
-//	t_stat		*buf;
-//	t_passwd	*passwd;
-//	t_group		*group;
+	t_stat		buf;
 	t_file		*temp;
 	
-
-//	if (!(buf = (t_stat*)malloc(sizeof(t_stat))))
-//		error_ls(NULL, MALLOC_ERROR);
 	if (!(temp = (t_file*)malloc(sizeof(t_file))))
 		error_ls(NULL, MALLOC_ERROR);
+	ft_copy_stat(path, file, temp);
+
 //	temp->file_stat = buf;
 	if (!(temp->name_str = ft_strdup(file)))
 		error_ls(NULL, MALLOC_ERROR);
@@ -146,15 +143,25 @@ static t_file	*get_stats(char *file, t_ls *ls_cont)
 //	if (!(temp->f_group = (t_group*)malloc(sizeof(t_group))))
 //		error_ls(NULL, MALLOC_ERROR);
 	
-	if ((stat(file, temp->f_stat)) == -1)
+//	if ((lstat(file, temp->f_stat)) == -1)
+	if ((lstat(file, &buf)) == -1)
 		error_ls(file, errno); //is this ok?
-//	if (!(temp->f_passwd = getpwuid(temp->f_stat->st_uid)))
-//		error_ls(file, errno); //is this ok? maybe not here?
-//	if (!(temp->f_group = getgrgid(temp->f_stat->st_gid)))
-//		error_ls(file, errno); //is this ok? maybe not here?
+	ft_memcpy(temp->f_stat, &buf, sizeof(t_stat));
+
+	get_modes(temp->f_stat, temp->mode_str);
+	temp->links_str = get_links(temp->f_stat, temp->links_str);
+	temp->owner_str = get_owner(temp->f_stat, temp->name_str, temp->owner_str);
+	temp->group_str = get_group(temp->f_stat, temp->name_str, temp->group_str);
+	ft_asprintf(&temp->lastmod_str, "%.12s", (ctime(&temp->f_stat->st_mtime) + 4));
+	temp->size_str = ft_strdup(get_file_size(temp->f_stat));
+
+/*
+RECURSIVE moved to other function
 	if (((ls_cont->options >> RECURSIVE) & 1) && (temp->f_stat->st_mode & S_IFDIR))
 		ft_list_dir(file, ls_cont);
+*/
 	return (temp);
+
 /*
 NOT YET HERE
 	temp->name_str = ft_strdup(file);
@@ -228,25 +235,39 @@ int			ft_list_dir(char *dir, t_ls *ls_cont)
 		return (error_ls(dir, OPEN_ERROR));
 	while ((dent = readdir(dirp)))
 	{
-		f = get_stats(dent->d_name, ls_cont);
-		temp = ft_lstnew(f, sizeof(t_file));
-//		temp = ft_lstnew(get_stats(dent->d_name, ls_cont), sizeof(t_file));
-		if (!temp)
-			error_ls(NULL, MALLOC_ERROR);
-//		ft_get_stats(dent->d_name, f_temp, ls_cont); //FILEOUT VAI CURRENT
-//		if (!(temp = ft_lstnew(f_temp, 1)))
-//		{
-//			error_ls(NULL, MALLOC_ERROR);
-//			closedir(dirp);
-//			return (0);
-//		}
-		ft_lstappend(&current->f_lst, temp);
-		free(f);
-//		ft_lstappend(&ls_cont->dirs->f_lst, temp);
-//		ft_printf("%s\n", dent->d_name);
-//		ft_inspect_file(dent->d_name);
+		if (dent->d_name[0] != '.')
+		{
+			char *str;
+			ft_asprintf(&str, "%s/%s", dir, dent->d_name);
+			f = get_stats(dir, str);
+//			f = get_stats(dent->d_name);
+
+			temp = ft_lstnew(f, sizeof(t_file));
+			if (!temp)
+				error_ls(NULL, MALLOC_ERROR);
+			ft_lstappend(&current->f_lst, temp);
+			free(f);
+		}
 	}
 	closedir(dirp);
+
+
+	temp = current->f_lst;
+	while (((ls_cont->options >> RECURSIVE) & 1) && temp->next)
+	{
+		temp = temp->next;
+		f = temp->content;
+//		ft_printf("%s\n", f->name_str);
+		if (f->name_str[0] != '.' && (f->f_stat->st_mode & S_IFDIR))
+		{
+			ft_printf("KANSIO: %s\n", f->name_str);
+			ft_list_dir(f->name_str, ls_cont);
+		}
+//		ft_printf("2");
+	}
+//	ft_printf("WHILE IS OVER!\n");
+
+
 //	ft_printf("current->d_name |%s|\n", current->d_name);
 //	f = ls_cont->dirs->next->f_lst->next->next->next->content;
 //	ft_printf("listdir f =%d\n", f->f_stat->st_size);

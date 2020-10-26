@@ -6,7 +6,7 @@
 #    By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/07/24 18:09:10 by hhuhtane          #+#    #+#              #
-#    Updated: 2020/10/21 14:45:27 by hhuhtane         ###   ########.fr        #
+#    Updated: 2020/10/26 21:36:35 by hhuhtane         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,13 @@ SRC = ft_ls.c \
 		ft_parse_args.c \
 		error_ls.c \
 		get_stats.c \
-		ft_print_ls.c
+		ft_print_ls.c \
+		ft_copy_utilities.c \
+		ft_inits.c \
+		ft_read_dir.c \
+		print_modes.c \
+		ft_sort_fun.c \
+		ft_mergesort_lst.c
 
 SRCS = $(addprefix $(SRC_DIR), $(SRC))
 

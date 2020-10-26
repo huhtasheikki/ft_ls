@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/11 13:48:03 by hhuhtane          #+#    #+#             */
-/*   Updated: 2020/10/21 12:11:40 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2020/10/26 16:56:08 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,16 @@
 **					"	00			10		20			30
 ** 					"0123456789012345678901234567890123456789"
 */
-# define USAGE 2
+# define USAGE 16
 # define MALLOC_ERROR 4
 # define OPEN_ERROR 8
 # define LS_OPTIONS "@1AaBbCcdeFfGgHhikLlmnOoPpqRrSsTtuUvWwx%"
 # define LS_OPTIONS_SIZE 40
 # define RECURSIVE 27
+
+# define AA_FLAGS 12
+# define A_FLAG 8
+# define UPA_FLAG 4
 
 /*
 **************
@@ -44,10 +48,25 @@ typedef struct group		t_group;
 typedef struct s_file
 {
 	t_stat					*f_stat;
+// copy these instead of t_stat;
+	char					*path;
+	char					file_str[257];
+	dev_t					st_dev;
+	ino_t					st_ino;
+	mode_t					st_mode;
+	size_t					st_mode2;
+	nlink_t					st_nlink;
+	uid_t					st_uid;
+	gid_t					st_gid;
+	dev_t					st_rdev;
+	time_t					mtime;
+	off_t					st_size;
+	blkcnt_t				st_blocks;
+
 	t_passwd				*f_passwd;
 	t_group					*f_group;
 	char					*name_str;
-	char					*mode_str;
+	char					mode_str[11];
 	char					*links_str;
 	char					*owner_str;
 	char					*group_str;
