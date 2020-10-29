@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/26 20:37:04 by hhuhtane          #+#    #+#             */
-/*   Updated: 2020/10/26 21:54:24 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2020/10/28 12:03:40 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static t_list	*mergesorted(t_list *a, t_list *b, int (*listsort)(t_list *, t_lis
 		return (b);
 	else if (b == NULL)
 		return (a);
-	if (listsort(a, b) == 1)
+	if (listsort(a, b) > 0)
 	{
 		sorted = a;
 		sorted->next = mergesorted(a->next, b, listsort);

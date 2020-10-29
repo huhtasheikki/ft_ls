@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/17 11:57:08 by hhuhtane          #+#    #+#             */
-/*   Updated: 2020/10/26 21:59:48 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2020/10/29 10:52:43 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ char		*get_group(t_stat *buf, char *file, char *str);
 char		*get_file_size(t_stat *buf);
 
 void		ft_print_ls(t_ls *ls_cont);
-void		ft_copy_stat(char *path, char *file, t_file *dst);
+void		copy_stat(char *path, char *file, t_file *dst, t_dirlst *cur);
 void		print_modes(mode_t st_mode);
 
 t_dirlst	*ft_init_dirlst(t_dirlst *lst, char *subdir, char *dir);
@@ -51,8 +51,11 @@ int			ft_read_dir(char *subdir, char *dir, t_ls *ls_cont);
 
 void		mergesort_ls(t_list **lst, int (*listsort)(t_list *, t_list *));
 
+void		sort_ls_lists(t_list *start, t_ls *ls_cont);
 int			sort_mtime(t_list *a, t_list *b);
 int			sort_name(t_list *a, t_list *b);
 
-
+char		*print_owner(uid_t st_uid, char *file);
+char		*print_group(gid_t st_gid, char *file);
+void		print_mtime(time_t mtime, char *file);
 #endif

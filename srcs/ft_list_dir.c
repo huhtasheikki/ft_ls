@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/11 13:37:58 by hhuhtane          #+#    #+#             */
-/*   Updated: 2020/10/26 12:25:58 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2020/10/27 10:43:09 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,10 @@ static t_file	*get_stats(char *path, char *file)
 	
 	if (!(temp = (t_file*)malloc(sizeof(t_file))))
 		error_ls(NULL, MALLOC_ERROR);
-	ft_copy_stat(path, file, temp);
+
+	(void)path;
+// THIS IS TEMPORARILY NOT IN USE
+//	copy_stat(path, file, temp);
 
 //	temp->file_stat = buf;
 	if (!(temp->name_str = ft_strdup(file)))

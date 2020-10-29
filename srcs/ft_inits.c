@@ -6,16 +6,44 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/26 12:38:58 by hhuhtane          #+#    #+#             */
-/*   Updated: 2020/10/26 15:31:21 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2020/10/29 10:43:59 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-t_dirlst	*ft_init_dirlst(t_dirlst *lst, char *subdir, char *dir)
+static char		*create_path_str(char *path, char *subdir, char *dir)
+{
+	size_t		len;
+
+	len = ft_strlen(dir);
+	if (subdir[0] == '\0')
+	{
+		if (dir[len - 1] == '/')
+		{
+			if (!(path = ft_strdup(dir)))
+				error_ls(NULL, MALLOC_ERROR);
+		}
+		else
+		{
+			if (!(path = ft_strjoin(dir, "/")))
+				error_ls(NULL, MALLOC_ERROR);
+		}
+	}
+	else
+	{
+		if (!(path = ft_strnew(len + ft_strlen(subdir) + 2)))
+			error_ls(NULL, MALLOC_ERROR);
+		ft_strcat(path, subdir);
+		ft_strcat(path, dir);
+		ft_strcat(path, "/");
+	}
+	return (path);
+}
+
+t_dirlst		*ft_init_dirlst(t_dirlst *lst, char *subdir, char *dir)
 {
 	t_dirlst	*ptr;
-	size_t		len;
 
 	ptr = lst;
 	while (ptr->next)
@@ -24,13 +52,12 @@ t_dirlst	*ft_init_dirlst(t_dirlst *lst, char *subdir, char *dir)
 		error_ls(NULL, MALLOC_ERROR);
 	ptr = ptr->next;
 	ptr->next = NULL;
-
-	len = ft_strlen(subdir) + ft_strlen(dir) + 2;
-	if (!(ptr->d_name = (char*)malloc(sizeof(char) * len)))
-		error_ls(NULL, MALLOC_ERROR);
-	ft_strcat(ptr->d_name, subdir);
-	ft_strcat(ptr->d_name, dir);
-	ft_strcat(ptr->d_name, "/");
+	ptr->d_name = create_path_str(ptr->d_name, subdir, dir);
+	ptr->d_blocks = 0;
+	ptr->nl_size = 0;
+	ptr->o_size = 0;
+	ptr->g_size = 0;
+	ptr->s_size = 0;
 	if (!(ptr->f_lst = ft_lstnew(NULL, 0)))
 		error_ls(NULL, MALLOC_ERROR);
 	return (ptr);

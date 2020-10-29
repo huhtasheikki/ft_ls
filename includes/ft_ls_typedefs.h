@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/11 13:48:03 by hhuhtane          #+#    #+#             */
-/*   Updated: 2020/10/26 16:56:08 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2020/10/28 17:26:39 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,17 @@
 # define LS_OPTIONS_SIZE 40
 # define RECURSIVE 27
 
+# define ONE_FLAG 2
 # define AA_FLAGS 12
 # define A_FLAG 8
 # define UPA_FLAG 4
+# define F_FLAG 2048
+# define G_FLAG 8192
+# define L_FLAG_I 19
+# define O_FLAG_I 23
+# define R_FLAG_I 28
+# define T_FLAG_I 32
+# define U_FLAG_I 33
 
 /*
 **************
@@ -60,6 +68,7 @@ typedef struct s_file
 	gid_t					st_gid;
 	dev_t					st_rdev;
 	time_t					mtime;
+	time_t					atime;
 	off_t					st_size;
 	blkcnt_t				st_blocks;
 
@@ -78,6 +87,13 @@ typedef struct s_dirlst
 {
 	char					*d_name;
 	t_list					*f_lst;
+
+	blkcnt_t				d_blocks;
+	size_t					nl_size;
+	size_t					o_size;
+	size_t					g_size;
+	size_t					s_size;
+
 	struct s_dirlst			*next;
 }							t_dirlst;
 

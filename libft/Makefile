@@ -6,7 +6,7 @@
 #    By: hhuhtane <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/17 11:39:33 by hhuhtane          #+#    #+#              #
-#    Updated: 2020/10/19 14:12:36 by hhuhtane         ###   ########.fr        #
+#    Updated: 2020/10/28 11:37:46 by hhuhtane         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -104,6 +104,7 @@ SRC =	ft_putchar.c \
 		ft_frexp.c \
 		ft_bitmask.c \
 		ft_vlqnew.c \
+		ft_lstrev.c
 
 PRINTF_SRC = ft_printf.c \
 		ft_initialize.c \

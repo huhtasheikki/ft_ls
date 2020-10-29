@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/17 12:20:37 by hhuhtane          #+#    #+#             */
-/*   Updated: 2020/10/26 14:57:16 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2020/10/29 09:57:07 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,15 +55,20 @@ static int		ft_parse_options(int argc, char **argv, t_ls *ls_cont)
 int		ft_parse_args(int argc, char **argv, t_ls *ls_cont)
 {
 	int		i;
+//	char	*str;
 
 	i = 1;
+//	str = ft_strnew(0);
 	if (argc == 1 || argv[1][0] != '-')
-		ls_cont->options = 1 << 1;
+		ls_cont->options = 1 << 1; // change this to something
 	else
 		i = ft_parse_options(argc, argv, ls_cont);
-	ft_printf("i=%d\n", i);
+	if (ls_cont->options & F_FLAG)
+		ls_cont->options = ls_cont->options | A_FLAG;
+	if (!argv[i])
+		ft_read_dir("", "./", ls_cont);
 	while (argv[i])
 		ft_read_dir("", argv[i++], ls_cont);
-//		ft_list_dir(argv[i++], ls_cont);
+//		ft_list_dir(argv[i++], ls_cont); //delete whole thing
 	return (1);
 }
