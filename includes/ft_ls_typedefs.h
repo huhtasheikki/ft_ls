@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/11 13:48:03 by hhuhtane          #+#    #+#             */
-/*   Updated: 2020/10/30 12:27:12 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2020/10/30 13:58:35 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,22 +24,22 @@
 # define USAGE 16
 # define MALLOC_ERROR 4
 # define OPEN_ERROR 8
-# define LS_OPTIONS "@1AaBbCcdeFfGgHhikLlmnOoPpqRrSsTtuUvWwx%"
-# define LS_OPTIONS_SIZE 40
-# define RECURSIVE 27
+# define LS_OPTIONS "1AafgloRrStu"
+# define LS_OPTIONS_SIZE 12
+# define RECURSIVE 7
 
-# define ONE_FLAG 2
-# define AA_FLAGS 12
-# define A_FLAG 8
-# define UPA_FLAG 4
-# define F_FLAG 2048
-# define G_FLAG 8192
-# define L_FLAG_I 19
-# define O_FLAG_I 23
-# define R_FLAG_I 28
-# define UPS_FLAG_I 29
-# define T_FLAG_I 32
-# define U_FLAG_I 33
+# define ONE_FLAG 1
+# define AA_FLAGS 6
+# define A_FLAG 4
+# define UPA_FLAG 2
+# define F_FLAG 8
+# define G_FLAG 16
+# define L_FLAG_I 5
+# define O_FLAG_I 6
+# define R_FLAG_I 8
+# define UPS_FLAG_I 9
+# define T_FLAG_I 10
+# define U_FLAG_I 11
 
 /*
 **************
