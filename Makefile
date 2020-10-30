@@ -6,7 +6,7 @@
 #    By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/07/24 18:09:10 by hhuhtane          #+#    #+#              #
-#    Updated: 2020/10/30 11:44:22 by hhuhtane         ###   ########.fr        #
+#    Updated: 2020/10/30 13:13:35 by hhuhtane         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,7 +48,6 @@ COLOR_TITLE = \033[1;37m
 all : $(NAME)
 
 $(NAME):
-		rm -f ft_ls
 		@echo "FT_LS \t\t[$(COLOR_TITLE)Make started$(COLOR_RESET)]"
 		@make -C $(LIBFT_DIR)
 		@cp $(LIBFT_DIR)$(LIBFT) ./$(LIBFT)
