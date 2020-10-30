@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/26 12:35:04 by hhuhtane          #+#    #+#             */
-/*   Updated: 2020/10/29 11:10:40 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2020/10/30 13:24:40 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,7 @@ int				ft_read_dir(char *subdir, char *dir, t_ls *ls_cont)
 
 	current = ft_init_dirlst(ls_cont->dirs, subdir, dir);
 	if (!(dirp = opendir(current->d_name)))
-	{
-		ft_printf("ERROR %s\n", current->d_name);
 		return (error_ls(dir, OPEN_ERROR));
-	}
 	while ((dent = readdir(dirp)))
 	{
 		ft_get_stats(current->d_name, dent->d_name, current, ls_cont);
