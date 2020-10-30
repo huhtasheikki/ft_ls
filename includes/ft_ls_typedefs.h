@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/11 13:48:03 by hhuhtane          #+#    #+#             */
-/*   Updated: 2020/10/28 17:26:39 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2020/10/30 12:07:42 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@
 ************
 ** MACROS **
 ************
-**					"	00			10		20			30
-** 					"0123456789012345678901234567890123456789"
 */
 # define USAGE 16
 # define MALLOC_ERROR 4
@@ -53,10 +51,8 @@ typedef struct stat			t_stat;
 typedef struct passwd		t_passwd;
 typedef struct group		t_group;
 
-typedef struct s_file
+typedef struct				s_file
 {
-	t_stat					*f_stat;
-// copy these instead of t_stat;
 	char					*path;
 	char					file_str[257];
 	dev_t					st_dev;
@@ -71,45 +67,33 @@ typedef struct s_file
 	time_t					atime;
 	off_t					st_size;
 	blkcnt_t				st_blocks;
-
 	t_passwd				*f_passwd;
 	t_group					*f_group;
 	char					*name_str;
 	char					mode_str[11];
-	char					*links_str;
 	char					*owner_str;
 	char					*group_str;
 	char					*size_str;
-	char					*lastmod_str;
 }							t_file;
 
-typedef struct s_dirlst
+typedef struct				s_dirlst
 {
 	char					*d_name;
 	t_list					*f_lst;
-
 	blkcnt_t				d_blocks;
 	size_t					nl_size;
 	size_t					o_size;
 	size_t					g_size;
 	size_t					s_size;
-
 	struct s_dirlst			*next;
 }							t_dirlst;
 
-typedef struct s_ls
+typedef struct				s_ls
 {
-	t_dirent				*dirent; // no need?
-	t_stat					*t_stat; // no need?
-	t_passwd				*t_passwd; // no need?
 	char					options_str[LS_OPTIONS_SIZE + 1];
-	t_u64					options;
+	t_ul64					options;
 	int						error_code;
-	t_list					*args_output; // no need?
-	t_list					*file_lst; // no need?
 	t_dirlst				*dirs;
 }							t_ls;
-
-
 
 #endif

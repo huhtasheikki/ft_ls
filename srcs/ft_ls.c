@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/17 11:51:15 by hhuhtane          #+#    #+#             */
-/*   Updated: 2020/10/29 11:52:17 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2020/10/30 12:03:37 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@ void	ft_start_init(t_ls *ls_cont)
 {
 	ls_cont->options = 0;
 	ft_strncpy(ls_cont->options_str, LS_OPTIONS, LS_OPTIONS_SIZE + 1);
-	if (!(ls_cont->file_lst = ft_lstnew(NULL, 0)))
-		error_ls(NULL, MALLOC_ERROR);
 	if (!(ls_cont->dirs = (t_dirlst*)malloc(sizeof(t_dirlst))))
 		error_ls(NULL, MALLOC_ERROR);
 }
