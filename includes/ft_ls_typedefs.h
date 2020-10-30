@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/11 13:48:03 by hhuhtane          #+#    #+#             */
-/*   Updated: 2020/10/30 12:07:42 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2020/10/30 12:27:12 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@
 # define L_FLAG_I 19
 # define O_FLAG_I 23
 # define R_FLAG_I 28
+# define UPS_FLAG_I 29
 # define T_FLAG_I 32
 # define U_FLAG_I 33
 
