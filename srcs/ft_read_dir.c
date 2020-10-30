@@ -6,13 +6,13 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/26 12:35:04 by hhuhtane          #+#    #+#             */
-/*   Updated: 2020/10/29 10:50:41 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2020/10/29 11:10:40 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-static void		ft_get_stats(char *path, char* file, t_dirlst *cur, \
+static void		ft_get_stats(char *path, char *file, t_dirlst *cur, \
 				t_ls *ls_cont)
 {
 	t_file		*temp;
@@ -45,14 +45,11 @@ static void		read_dirs_rec(t_dirlst *current, t_ls *ls_cont)
 	{
 		temp = temp->next;
 		file = temp->content;
-//		ft_printf("%s st_mode=%d, %d\n", file->name_str, (file->st_mode & S_IFDIR));
 		if (((file->st_mode & S_IFMT) == S_IFDIR) && \
 		(file->name_str[0] != '.' || \
 		((file->name_str[1] != '.') && \
 		(file->name_str[1] != '\0'))))
 		{
-			(void)ls_cont;
-			ft_printf("FOUND folder: %s%s\n", current->d_name, file->name_str);
 			ft_read_dir(current->d_name, file->name_str, ls_cont);
 		}
 	}
@@ -63,7 +60,6 @@ int				ft_read_dir(char *subdir, char *dir, t_ls *ls_cont)
 	DIR			*dirp;
 	t_dirent	*dent;
 	t_dirlst	*current;
-//	t_list		*f_lst_temp;
 
 	current = ft_init_dirlst(ls_cont->dirs, subdir, dir);
 	if (!(dirp = opendir(current->d_name)))

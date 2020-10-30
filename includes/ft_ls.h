@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/17 11:57:08 by hhuhtane          #+#    #+#             */
-/*   Updated: 2020/10/29 10:52:43 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2020/10/29 11:57:55 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,7 @@
 # include <grp.h>
 # include <time.h>
 # include <errno.h>
-# include <string.h> //strerror
-# include <stdio.h> //perror
+# include <string.h>
 # include "libft.h"
 # include "libft_shorthand.h"
 # include "ft_printf.h"
@@ -33,7 +32,6 @@
 */
 
 int			ft_parse_args(int argc, char **argv, t_ls *ls_cont);
-int			ft_list_dir(char *dir, t_ls *ls_cont);
 int			error_ls(char *str, int error_code);
 
 char		*get_modes(t_stat *buf, char *str);

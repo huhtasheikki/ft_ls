@@ -6,13 +6,14 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/26 20:37:04 by hhuhtane          #+#    #+#             */
-/*   Updated: 2020/10/28 12:03:40 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2020/10/29 11:59:39 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-static t_list	*mergesorted(t_list *a, t_list *b, int (*listsort)(t_list *, t_list *))
+static t_list	*mergesorted(t_list *a, t_list *b, \
+							int (*listsort)(t_list *, t_list *))
 {
 	t_list		*sorted;
 
@@ -33,7 +34,7 @@ static t_list	*mergesorted(t_list *a, t_list *b, int (*listsort)(t_list *, t_lis
 	return (sorted);
 }
 
-void			ft_split_list(t_list *src, t_list **a, t_list **b)
+static void		ft_split_list(t_list *src, t_list **a, t_list **b)
 {
 	t_list		*slow;
 	t_list		*fast;
@@ -54,7 +55,7 @@ void			ft_split_list(t_list *src, t_list **a, t_list **b)
 	slow->next = NULL;
 }
 
-void	mergesort_ls(t_list **lst, int (*listsort)(t_list *, t_list *))
+void			mergesort_ls(t_list **lst, int (*listsort)(t_list *, t_list *))
 {
 	t_list		*head;
 	t_list		*a;

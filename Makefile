@@ -6,7 +6,7 @@
 #    By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/07/24 18:09:10 by hhuhtane          #+#    #+#              #
-#    Updated: 2020/10/26 21:36:35 by hhuhtane         ###   ########.fr        #
+#    Updated: 2020/10/30 11:44:22 by hhuhtane         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,6 @@ LIBFT_DIR = libft/
 LIBFT_H = -I./libft/includes/
 
 SRC = ft_ls.c \
-		ft_list_dir.c \
 		ft_parse_args.c \
 		error_ls.c \
 		get_stats.c \
@@ -49,11 +48,11 @@ COLOR_TITLE = \033[1;37m
 all : $(NAME)
 
 $(NAME):
-		@rm -f a.out
+		rm -f ft_ls
 		@echo "FT_LS \t\t[$(COLOR_TITLE)Make started$(COLOR_RESET)]"
 		@make -C $(LIBFT_DIR)
 		@cp $(LIBFT_DIR)$(LIBFT) ./$(LIBFT)
-		@$(CC) $(CFLAGS) $(LIBFT_H) $(SRCS) $(LIBFT)
+		@$(CC) $(CFLAGS) $(LIBFT_H) $(SRCS) $(LIBFT) -o $(NAME)
 
 test: fclean all
 		$(CC) $(LIBFT_H) $(NAME) main.c

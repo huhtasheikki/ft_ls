@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/26 09:59:51 by hhuhtane          #+#    #+#             */
-/*   Updated: 2020/10/28 16:50:04 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2020/10/29 11:43:31 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void			copy_stat(char *path, char *file, t_file *dst, t_dirlst *cur)
 
 	if (!(dst->path = ft_strjoin(path, file)))
 		error_ls(file, MALLOC_ERROR);
-	if (stat(dst->path, &buf) == -1)
+	if (lstat(dst->path, &buf) == -1)
 		error_ls(path, errno);
 	if (!(dst->name_str = ft_strdup(file)))
 		error_ls(NULL, MALLOC_ERROR);
