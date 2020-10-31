@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/17 11:57:08 by hhuhtane          #+#    #+#             */
-/*   Updated: 2020/10/30 13:08:09 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2020/10/30 14:55:41 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ int			error_ls(char *str, int error_code);
 
 char		*get_modes(t_stat *buf, char *str);
 char		*get_links(t_stat *buf, char *str);
-char		*get_owner(t_stat *buf, char *file, char *str);
-char		*get_group(t_stat *buf, char *file, char *str);
+char		*get_owner(t_stat *buf, char *file, t_file *f);
+char		*get_group(t_stat *buf, char *file, t_file *f);
 char		*get_file_size(t_stat *buf);
 
 void		copy_stat(char *path, char *file, t_file *dst, t_dirlst *cur);

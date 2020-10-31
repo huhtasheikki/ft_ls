@@ -6,15 +6,24 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/21 14:27:49 by hhuhtane          #+#    #+#             */
-/*   Updated: 2020/10/30 11:42:18 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2020/10/31 13:18:34 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
+char			*print_group(gid_t st_gid, char *file)
+{
+	t_group		*group;
+
+	if (!(group = getgrgid(st_gid)))
+		error_ls(file, errno);
+	return (group->gr_name);
+}
+
 void			print_l_format(t_file *f, t_dirlst *dir, t_ls *ls_cont)
 {
-	char	*str;
+	char		*str;
 
 	print_modes(f->st_mode);
 	ft_printf(" %*d ", dir->nl_size, f->st_nlink);
@@ -45,7 +54,7 @@ static void		print_directory(t_dirlst *dir, t_ls *ls_cont)
 
 	lst = dir->f_lst;
 	file = lst->content;
-	if (ls_cont->options & (1ULL << L_FLAG_I))
+	if (lst->next && (ls_cont->options & (1ULL << L_FLAG_I)))
 		ft_printf("total %d\n", dir->d_blocks);
 	while (lst->next)
 	{
@@ -58,16 +67,49 @@ static void		print_directory(t_dirlst *dir, t_ls *ls_cont)
 	}
 }
 
+static void		print_files(t_ls *ls_cont)
+{
+	t_list		*lst;
+	t_file		*file;
+
+	lst = ls_cont->files->next->f_lst;
+	while (lst->next)
+	{
+		lst = lst->next;
+		file = lst->content;
+		if (ls_cont->options & (1ULL << L_FLAG_I))
+			print_l_format(file, ls_cont->files->next, ls_cont);
+		else if (ls_cont->options & ONE_FLAG)
+			ft_printf("%s\n", file->name_str);
+	}
+
+}
+
 void			ft_print_ls(t_ls *ls_cont)
 {
 	t_dirlst	*dirs;
+	t_list		*lst;
 
+	dirs = ls_cont->files->next;
+	if (dirs)
+	{
+		print_files(ls_cont);
+		dirs = ls_cont->dirs->next;
+		lst = dirs->f_lst->next;
+		if (lst)
+			ft_printf("\n%s:\n", dirs->d_name);
+
+	}
 	dirs = ls_cont->dirs->next;
 	while (dirs)
 	{
 		print_directory(dirs, ls_cont);
 		dirs = dirs->next;
 		if (dirs)
-			ft_printf("\n%s:\n", dirs->d_name);
+		{
+			lst = dirs->f_lst;
+			if (lst->next)
+				ft_printf("\n%s:\n", dirs->d_name);
+		}
 	}
 }

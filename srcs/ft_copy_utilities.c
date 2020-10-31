@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/26 09:59:51 by hhuhtane          #+#    #+#             */
-/*   Updated: 2020/10/29 11:43:31 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2020/10/31 11:35:08 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ static void		get_csizes(t_stat *buf, char *file, t_file *dst, t_dirlst *cur)
 		cur->nl_size = size;
 	if ((size = get_column_size(dst->st_size)) > cur->s_size)
 		cur->s_size = size;
-	dst->owner_str = get_owner(buf, file, dst->owner_str);
-	dst->group_str = get_group(buf, file, dst->group_str);
+	get_owner(buf, file, dst);
+	get_group(buf, file, dst);
 	size = ft_strlen(dst->group_str);
 	if (size > cur->g_size)
 		cur->g_size = size;
