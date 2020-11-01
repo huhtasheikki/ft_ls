@@ -6,7 +6,7 @@
 #    By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/07/24 18:09:10 by hhuhtane          #+#    #+#              #
-#    Updated: 2020/10/30 13:13:35 by hhuhtane         ###   ########.fr        #
+#    Updated: 2020/11/01 15:20:33 by hhuhtane         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -66,6 +66,6 @@ clean:
 fclean: clean
 		@make fclean -C $(LIBFT_DIR)
 		@rm -f $(NAME)
-		@rm -f a.out
+		@rm -f $(LIBFT)
 
 re: fclean all
