@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/17 12:20:37 by hhuhtane          #+#    #+#             */
-/*   Updated: 2020/10/30 18:28:11 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2020/11/01 12:55:13 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,5 +70,6 @@ int				ft_parse_args(int argc, char **argv, t_ls *ls_cont)
 		ft_read_dir("", "./", ls_cont);
 	while (argv[i])
 		ft_read_dir("", argv[i++], ls_cont);
+	sort_ls_lists(ls_cont->files->next->f_lst, ls_cont);
 	return (1);
 }

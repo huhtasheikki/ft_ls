@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/26 21:26:11 by hhuhtane          #+#    #+#             */
-/*   Updated: 2020/10/30 18:26:43 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2020/11/01 12:57:34 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ static int		sort_atime(t_list *a, t_list *b)
 		return (ft_strcmp(bf->name_str, af->name_str));
 	return (-1);
 }
+
 static int		sort_mtime(t_list *a, t_list *b)
 {
 	t_file		*af;

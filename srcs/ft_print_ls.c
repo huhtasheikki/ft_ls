@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/21 14:27:49 by hhuhtane          #+#    #+#             */
-/*   Updated: 2020/10/31 13:18:34 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2020/11/01 12:58:23 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,6 @@ static void		print_files(t_ls *ls_cont)
 		else if (ls_cont->options & ONE_FLAG)
 			ft_printf("%s\n", file->name_str);
 	}
-
 }
 
 void			ft_print_ls(t_ls *ls_cont)
@@ -98,7 +97,6 @@ void			ft_print_ls(t_ls *ls_cont)
 		lst = dirs->f_lst->next;
 		if (lst)
 			ft_printf("\n%s:\n", dirs->d_name);
-
 	}
 	dirs = ls_cont->dirs->next;
 	while (dirs)
