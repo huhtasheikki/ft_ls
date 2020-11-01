@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/11 13:48:03 by hhuhtane          #+#    #+#             */
-/*   Updated: 2020/10/31 11:33:32 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2020/11/01 14:14:30 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ typedef struct				s_ls
 	int						error_code;
 	t_dirlst				*dirs;
 	t_dirlst				*files;
+	t_list					*args;
 }							t_ls;
 
 #endif

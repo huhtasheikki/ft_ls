@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/17 11:57:08 by hhuhtane          #+#    #+#             */
-/*   Updated: 2020/10/30 14:55:41 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2020/11/01 14:25:33 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 ****************
 */
 
-int			ft_parse_args(int argc, char **argv, t_ls *ls_cont);
+void		ft_parse_args(int argc, char **argv, t_ls *ls_cont);
 int			error_ls(char *str, int error_code);
 
 char		*get_modes(t_stat *buf, char *str);

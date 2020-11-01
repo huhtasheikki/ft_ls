@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/17 12:20:37 by hhuhtane          #+#    #+#             */
-/*   Updated: 2020/11/01 12:55:13 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2020/11/01 14:25:12 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,42 @@ static int		ft_parse_options(int argc, char **argv, t_ls *ls_cont)
 	return (i);
 }
 
-int				ft_parse_args(int argc, char **argv, t_ls *ls_cont)
+static void		get_and_sort_args(t_ls *ls_cont, char **argv, int i)
 {
-	int		i;
+	t_file		arg;
+	t_stat		buf;
+	t_list		*ptr;
+	int			j;
+
+	j = 0;
+	ptr = ls_cont->args;
+	while (argv[i])
+	{
+		if ((j = lstat(argv[i], &buf)) == -1)
+			error_ls(argv[i], errno);
+		if (j != -1)
+		{
+			if (!(arg.name_str = ft_strdup(argv[i])))
+				error_ls(argv[i], MALLOC_ERROR);
+			arg.mtime = buf.st_mtime;
+			arg.atime = buf.st_atime;
+			if (!(ptr->next = ft_lstnew(&arg, sizeof(t_file))))
+				error_ls(NULL, MALLOC_ERROR);
+			ptr = ptr->next;
+		}
+		i++;
+	}
+	ptr = ls_cont->args;
+	sort_ls_lists(ptr, ls_cont);
+}
+
+void			ft_parse_args(int argc, char **argv, t_ls *ls_cont)
+{
+	int			i;
+	t_list		*ptr;
+	t_file		*args;
 
 	i = 1;
-	ls_cont->options = ONE_FLAG;
 	if (argc == 1 || argv[1][0] != '-')
 		ls_cont->options = ONE_FLAG;
 	else
@@ -68,8 +98,14 @@ int				ft_parse_args(int argc, char **argv, t_ls *ls_cont)
 		ls_cont->options = ls_cont->options | (1 << L_FLAG_I);
 	if (!argv[i])
 		ft_read_dir("", "./", ls_cont);
-	while (argv[i])
-		ft_read_dir("", argv[i++], ls_cont);
+	else
+		get_and_sort_args(ls_cont, argv, i);
+	ptr = ls_cont->args;
+	while (ptr->next)
+	{
+		ptr = ptr->next;
+		args = ptr->content;
+		ft_read_dir("", args->name_str, ls_cont);
+	}
 	sort_ls_lists(ls_cont->files->next->f_lst, ls_cont);
-	return (1);
 }
