@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/17 12:20:37 by hhuhtane          #+#    #+#             */
-/*   Updated: 2020/11/01 14:25:12 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2020/11/01 15:14:10 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,10 +88,7 @@ void			ft_parse_args(int argc, char **argv, t_ls *ls_cont)
 	t_file		*args;
 
 	i = 1;
-	if (argc == 1 || argv[1][0] != '-')
-		ls_cont->options = ONE_FLAG;
-	else
-		i = ft_parse_options(argc, argv, ls_cont);
+	i = ft_parse_options(argc, argv, ls_cont);
 	if (ls_cont->options & F_FLAG)
 		ls_cont->options = ls_cont->options | A_FLAG;
 	if ((ls_cont->options & (1 << O_FLAG_I) || (ls_cont->options & G_FLAG)))
@@ -99,13 +96,15 @@ void			ft_parse_args(int argc, char **argv, t_ls *ls_cont)
 	if (!argv[i])
 		ft_read_dir("", "./", ls_cont);
 	else
-		get_and_sort_args(ls_cont, argv, i);
-	ptr = ls_cont->args;
-	while (ptr->next)
 	{
-		ptr = ptr->next;
-		args = ptr->content;
-		ft_read_dir("", args->name_str, ls_cont);
+		get_and_sort_args(ls_cont, argv, i);
+		ptr = ls_cont->args;
+		while (ptr->next)
+		{
+			ptr = ptr->next;
+			args = ptr->content;
+			ft_read_dir("", args->name_str, ls_cont);
+		}
 	}
 	sort_ls_lists(ls_cont->files->next->f_lst, ls_cont);
 }

@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/21 14:27:49 by hhuhtane          #+#    #+#             */
-/*   Updated: 2020/11/01 12:58:23 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2020/11/01 15:11:05 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,14 +67,17 @@ static void		print_directory(t_dirlst *dir, t_ls *ls_cont)
 	}
 }
 
-static void		print_files(t_ls *ls_cont)
+static int		print_files(t_ls *ls_cont)
 {
 	t_list		*lst;
 	t_file		*file;
+	int			i;
 
+	i = 0;
 	lst = ls_cont->files->next->f_lst;
 	while (lst->next)
 	{
+		i++;
 		lst = lst->next;
 		file = lst->content;
 		if (ls_cont->options & (1ULL << L_FLAG_I))
@@ -82,6 +85,7 @@ static void		print_files(t_ls *ls_cont)
 		else if (ls_cont->options & ONE_FLAG)
 			ft_printf("%s\n", file->name_str);
 	}
+	return (i);
 }
 
 void			ft_print_ls(t_ls *ls_cont)
@@ -90,9 +94,8 @@ void			ft_print_ls(t_ls *ls_cont)
 	t_list		*lst;
 
 	dirs = ls_cont->files->next;
-	if (dirs)
+	if (print_files(ls_cont))
 	{
-		print_files(ls_cont);
 		dirs = ls_cont->dirs->next;
 		lst = dirs->f_lst->next;
 		if (lst)
