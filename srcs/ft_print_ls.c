@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/21 14:27:49 by hhuhtane          #+#    #+#             */
-/*   Updated: 2020/11/02 15:10:09 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2020/11/02 18:57:30 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void			print_l_format(t_file *f, t_dirlst *dir, t_ls *ls_cont)
 	char		*str;
 
 	print_modes(f->st_mode);
+	ft_printf("%c ", print_acl(f->path));
 	ft_printf(" %*d ", dir->nl_size, f->st_nlink);
 	if (!(ls_cont->options & G_FLAG))
 		ft_printf("%-*s  ", dir->o_size, print_owner(f->st_uid, f->name_str));
@@ -94,24 +95,25 @@ void			ft_print_ls(t_ls *ls_cont)
 	t_dirlst	*dirs;
 	t_list		*lst;
 
-	dirs = ls_cont->files->next;
 	if (print_files(ls_cont))
 	{
 		dirs = ls_cont->dirs->next;
 		lst = dirs->f_lst->next;
 		if (lst)
+		{
+			*ft_strrchr(dirs->d_name, '/') = 0;
 			ft_printf("\n%s:\n", dirs->d_name);
+		}
 	}
 	dirs = ls_cont->dirs->next;
 	while (dirs)
 	{
 		print_directory(dirs, ls_cont);
 		dirs = dirs->next;
-		if (dirs)
+		if (dirs && (lst = dirs->f_lst) && lst->next)
 		{
-			lst = dirs->f_lst;
-			if (lst->next)
-				ft_printf("\n%s:\n", dirs->d_name);
+			*ft_strrchr(dirs->d_name, '/') = 0;
+			ft_printf("\n%s:\n", dirs->d_name);
 		}
 	}
 }

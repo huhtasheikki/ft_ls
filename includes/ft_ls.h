@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/17 11:57:08 by hhuhtane          #+#    #+#             */
-/*   Updated: 2020/11/01 14:25:33 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2020/11/02 18:47:46 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 # include <time.h>
 # include <errno.h>
 # include <string.h>
+# include <sys/xattr.h>
+# include <sys/acl.h>
 # include "libft.h"
 # include "libft_shorthand.h"
 # include "ft_printf.h"
@@ -53,4 +55,6 @@ void		print_modes(mode_t st_mode);
 char		*print_owner(uid_t st_uid, char *file);
 char		*print_group(gid_t st_gid, char *file);
 void		print_mtime(time_t mtime, char *file);
+
+char		print_acl(char *path);
 #endif

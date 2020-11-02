@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/17 11:51:15 by hhuhtane          #+#    #+#             */
-/*   Updated: 2020/11/02 16:17:47 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2020/11/02 18:14:49 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,5 +71,6 @@ int		main(int argc, char **argv)
 	ft_start_init(&ls_cont);
 	ft_parse_args(argc, argv, &ls_cont);
 	ft_print_ls(&ls_cont);
+	exit(0);
 	return (0);
 }

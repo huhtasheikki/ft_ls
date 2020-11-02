@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/26 18:04:06 by hhuhtane          #+#    #+#             */
-/*   Updated: 2020/10/30 16:37:28 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2020/11/02 18:56:41 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ void			print_modes(mode_t st_mode)
 	}
 	else
 		(st_mode & S_IXOTH) ? ft_printf("x") : ft_printf("-");
-	ft_printf(" ");
 }
 
 char			*print_owner(uid_t st_uid, char *file)

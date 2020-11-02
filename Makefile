@@ -6,7 +6,7 @@
 #    By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/07/24 18:09:10 by hhuhtane          #+#    #+#              #
-#    Updated: 2020/11/01 15:20:33 by hhuhtane         ###   ########.fr        #
+#    Updated: 2020/11/02 18:45:12 by hhuhtane         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,8 @@ SRC = ft_ls.c \
 		ft_read_dir.c \
 		print_modes.c \
 		ft_sort_fun.c \
-		ft_mergesort_lst.c
+		ft_mergesort_lst.c \
+		extras.c
 
 SRCS = $(addprefix $(SRC_DIR), $(SRC))
 
