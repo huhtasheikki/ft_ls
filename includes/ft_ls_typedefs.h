@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/11 13:48:03 by hhuhtane          #+#    #+#             */
-/*   Updated: 2020/11/01 14:14:30 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2020/11/02 16:31:06 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,11 +65,9 @@ typedef struct group		t_group;
 typedef struct				s_file
 {
 	char					*path;
-	char					file_str[257];
 	dev_t					st_dev;
 	ino_t					st_ino;
 	mode_t					st_mode;
-	size_t					st_mode2;
 	nlink_t					st_nlink;
 	uid_t					st_uid;
 	gid_t					st_gid;
@@ -78,8 +76,6 @@ typedef struct				s_file
 	time_t					atime;
 	off_t					st_size;
 	blkcnt_t				st_blocks;
-	t_passwd				*f_passwd;
-	t_group					*f_group;
 	char					*name_str;
 	char					mode_str[11];
 	char					*owner_str;
