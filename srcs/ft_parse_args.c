@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/17 12:20:37 by hhuhtane          #+#    #+#             */
-/*   Updated: 2020/11/01 15:14:10 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2020/11/02 16:24:31 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ static void		get_and_sort_args(t_ls *ls_cont, char **argv, int i)
 	int			j;
 
 	j = 0;
+	ft_memset(&arg, 0, sizeof(t_file));
 	ptr = ls_cont->args;
 	while (argv[i])
 	{
@@ -67,11 +68,10 @@ static void		get_and_sort_args(t_ls *ls_cont, char **argv, int i)
 			error_ls(argv[i], errno);
 		if (j != -1)
 		{
-			if (!(arg.name_str = ft_strdup(argv[i])))
-				error_ls(argv[i], MALLOC_ERROR);
 			arg.mtime = buf.st_mtime;
 			arg.atime = buf.st_atime;
-			if (!(ptr->next = ft_lstnew(&arg, sizeof(t_file))))
+			if ((!(arg.name_str = ft_strdup(argv[i]))) || \
+					(!(ptr->next = ft_lstnew(&arg, sizeof(t_file)))))
 				error_ls(NULL, MALLOC_ERROR);
 			ptr = ptr->next;
 		}
