@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/21 14:27:49 by hhuhtane          #+#    #+#             */
-/*   Updated: 2020/11/01 15:11:05 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2020/11/02 15:10:09 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ void			print_l_format(t_file *f, t_dirlst *dir, t_ls *ls_cont)
 			error_ls(f->name_str, MALLOC_ERROR);
 		readlink(f->path, str, 256);
 		ft_printf(" -> %s", str);
+		free(str);
 	}
 	ft_printf("\n");
 }

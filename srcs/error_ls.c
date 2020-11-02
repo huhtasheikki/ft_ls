@@ -6,7 +6,7 @@
 /*   By: hhuhtane <hhuhtane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 19:36:04 by hhuhtane          #+#    #+#             */
-/*   Updated: 2020/10/29 11:13:28 by hhuhtane         ###   ########.fr       */
+/*   Updated: 2020/11/02 15:03:48 by hhuhtane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,10 @@
 
 int		error_ls(char *str, int error_code)
 {
+	char	*ptr;
+
+	if (!(ptr = ft_strrchr(str, '/')))
+		ptr = str;
 	if ((error_code) == errno && (errno == 0))
 	{
 		ft_printf("ft_ls: %s", strerror(errno));
@@ -32,7 +36,7 @@ int		error_ls(char *str, int error_code)
 	}
 	if (error_code == OPEN_ERROR)
 	{
-		ft_printf("ft_ls: %s: %s\n", str, strerror(errno));
+		ft_printf("ft_ls: %s: %s\n", ptr + 1, strerror(errno));
 		return (0);
 	}
 	ft_printf("ft_ls: %s: %s\n", str, strerror(errno));
